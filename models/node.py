@@ -1,3 +1,6 @@
+__author__ = 'kinsumliu'
+
+
 class Node:
     parent = None
     action = None
@@ -45,8 +48,7 @@ class Node:
         return tuple(t)
 
 
-# Helper functions for node to trace result
-
+# Helper function to trace result
 def trace(node):
     print("****       start of trace        ****")
     print("The node is ", end = "")
@@ -61,6 +63,7 @@ def trace(node):
     print(node, end= "")
     print(" Root")
     print("****       end of trace        ****\n")
+
 
 #Trace result and print heuristic value and #nodes expanded
 def trace_h(node, heuristic, counter):

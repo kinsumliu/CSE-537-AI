@@ -1,3 +1,4 @@
+__author__ = 'kinsumliu'
 """
 It provides different search methods for a data structure that involves nodes.
 functions: tree_search, graph_search, depth_limited_search, recursive_dls, iterative_deepening_search

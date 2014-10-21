@@ -1,5 +1,4 @@
 __author__ = 'kinsumliu'
-
 """
 Interface for a problem
 """
