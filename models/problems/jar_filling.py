@@ -1,7 +1,6 @@
+__author__ = 'kinsumliu'
 from models.node import Node
 from models.problem import Problem
-
-__author__ = 'kinsumliu'
 
 
 class JarFilling(Problem):
