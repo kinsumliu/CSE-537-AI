@@ -19,3 +19,7 @@ a3: Ercect-a-Barrier 2-Persons Game
 
 a4: Golomb Ruler
 http://en.wikipedia.org/wiki/Golomb_ruler
+
+
+##Algorithms
+BFS, DFS, Iterative Deepening, A* Search, Minimax, Alpha-Beta Pruning
