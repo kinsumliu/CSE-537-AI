@@ -7,6 +7,7 @@ The list of problems solved is:
 - [x] a2: Informed Search
 - [ ] a3: Adversarial Search
 - [ ] a4: Constraint Satisfaction Problem
+- [ ] a5: Knowledge Representation
 
 ##Description of the problems
 a1: Linear Sliding Puzzle
