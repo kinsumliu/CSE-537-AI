@@ -6,7 +6,7 @@ The list of problems solved is:
 - [x] a1: Uninformed Search
 - [x] a2: Informed Search
 - [ ] a3: Adversarial Search
-- [ ] a4: Constraint Satisfaction Problem
+- [x] a4: Constraint Satisfaction Problem
 - [ ] a5: Knowledge Representation
 
 ##Description of the problems
@@ -23,4 +23,4 @@ http://en.wikipedia.org/wiki/Golomb_ruler
 
 
 ##Algorithms
-BFS, DFS, Iterative Deepening, A* Search, Minimax, Alpha-Beta Pruning
+BFS, DFS, Iterative Deepening, A* Search, Minimax, Alpha-Beta Pruning, CSP (Backtracking, MRV, Forward Checking, Constraint Propagation, Iterative Improvement)
