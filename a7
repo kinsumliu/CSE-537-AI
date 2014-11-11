@@ -1,0 +1,26 @@
+:- import select/3 from basics.
+:- import append/3 from basics.
+
+% query: cryp([S,E,N,D,M,O,R,Y], [1,2,3,4,5,6,7,8,9,0], []).
+
+% all variables are initialized, check for consistency
+cryp([] , _ , Assign) :- consistent(Assign).
+
+cryp([H|T], Domain, Assign) :-
+  % recursively pick the value from the possible domain
+  select(H, Domain, RemainingDomain),
+  append(Assign, [H], NewAssign),
+  cryp(T, RemainingDomain, NewAssign).
+
+consistent([S,E,N,D,M,O,R,Y]) :-
+  % no leading zeros
+  not (S = 0),
+  not (M = 0),
+
+  % calculate the value
+  SEND is 1000*S+100*E+10*N+D,
+  MORE is 1000*M+100*O+10*R+E,
+  MONEY is 10000*M+1000*O+100*N+10*E+Y,
+
+  % check whether the equation is satisfied
+  MONEY is SEND + MORE.

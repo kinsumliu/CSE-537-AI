@@ -1,0 +1,166 @@
+:- import select/3 from basics.
+:- import append/3 from basics.
+:- import ith/3 from basics.
+:- import length/2 from basics.
+
+% query: assemble([1,2,3,4,5,6,7,8,9], [], Assign).
+% other: assemble([1,2], [], Assign), assemble([1,2,3,4], [], Assign).
+
+% part([UP, DOWN, LEFT, RIGHT])
+part([-b,d,-a,c]).
+part([a,-c,-d,d]).
+part([-c,d,-d,b]).
+part([-d,d,b,-c]).
+part([b,-a,d,-c]).
+part([-a,c,b,-d]).
+part([-b,b,-a,c]).
+part([-a,a,b,-c]).
+part([-b,d,-c,a]).
+
+% each part can rotate
+rotation(1, [-b,d,-a,c]).
+rotation(1, [d,-a,c,-b]).
+rotation(1, [-a,c,-b,d]).
+rotation(1, [c,-b,d,-a]).
+
+rotation(2, [a,-c,-d,d]).
+rotation(2, [-c,-d,d,a]).
+rotation(2, [-d,d,a,-c]).
+rotation(2, [d,a,-c,-d]).
+
+rotation(3, [-c,d,-d,b]).
+rotation(3, [d,-d,b,-c]).
+rotation(3, [-d,b,-c,d]).
+rotation(3, [b,-c,d,-d]).
+
+rotation(4, [-d,d,b,-c]).
+rotation(4, [d,b,-c,-d]).
+rotation(4, [b,-c,-d,d]).
+rotation(4, [-c,-d,d,b]).
+
+rotation(5, [b,-a,d,-c]).
+rotation(5, [-a,d,-c,b]).
+rotation(5, [d,-c,b,-a]).
+rotation(5, [-c,b,-a,d]).
+
+rotation(6, [-a,c,b,-d]).
+rotation(6, [c,b,-d,-a]).
+rotation(6, [b,-d,-a,c]).
+rotation(6, [-d,-a,c,b]).
+
+rotation(7, [-b,b,-a,c]).
+rotation(7, [-b,-a,c,-b]).
+rotation(7, [-a,c,-b,b]).
+rotation(7, [c,-b,b,-a]).
+
+rotation(8, [-a,a,b,-c]).
+rotation(8, [a,b,-c,-a]).
+rotation(8, [b,-c,-a,a]).
+rotation(8, [-c,-a,a,b]).
+
+rotation(9, [-b,d,-c,a]).
+rotation(9, [-d,-c,a,-b]).
+rotation(9, [-c,a,-b,d]).
+rotation(9, [a,-b,d,-c]).
+
+% definition of matching
+match(a,-a).
+match(-a,a).
+match(b,-b).
+match(-b,b).
+match(c,-c).
+match(-c,c).
+match(d,-d).
+match(-d,d).
+
+% right of first part = left of second part
+rl([_,_,_,R],[_,_,L,_]) :- match(R,L).
+
+% up of first part = down of second part
+ud([U,_,_,_],[_,D,_,_]) :- match(U,D).
+
+% this version of consistency check works but create duplication
+consistent([]).
+consistent(L):-
+  (
+    not(ith(1,L,E1)) ; %no E1
+    (
+      ith(1,L,E1),
+      ( not(ith(2,L,E2)) ; ith(2,L,E2), rl(E1,E2) ),
+      ( not(ith(4,L,E4)) ; ith(4,L,E4), ud(E4,E1) )
+    )
+  ),
+  (
+    not(ith(2,L,E2)) ; %no E2
+    (
+      ith(2,L,E2),
+      ( not(ith(3,L,E3)) ; ith(3,L,E3), rl(E2,E3) ),
+      ( not(ith(5,L,E5)) ; ith(5,L,E5), ud(E5,E2) )
+    )
+  ),
+  (
+    not(ith(3,L,E3)) ; %no E3
+    (
+      ith(3,L,E3),
+      ( not(ith(6,L,E6)) ; ith(6,L,E6), ud(E6,E3) )
+    )
+  ),
+  (
+    (length(L, Length), Length < 4);
+    (length(Temp, 3), append(Temp,Y,L), consistent(Y))
+    %(ith(1,L,E1), ith(2,L,E2), ith(3,L,E3), append([E1,E2,E3], Y, L), consistent(Y))
+  ).
+
+% this version of consistency wont create duplication but more naive
+consistent1([],_).
+consistent1(_, 1).
+consistent1([X1,X2], 2) :-
+  rl(X1,X2).
+consistent1([X1,X2,X3], 3) :-
+  rl(X1,X2), rl(X2,X3).
+consistent1([X1,X2,X3,X4], 4) :-
+  rl(X1,X2), rl(X2,X3),
+  ud(X4, X1).
+consistent1([X1,X2,X3,X4,X5], 5) :-
+  rl(X1,X2), rl(X2,X3),
+  rl(X4,X5),
+  ud(X4, X1), ud(X5, X2).
+consistent1([X1,X2,X3,X4,X5,X6], 6) :-
+  rl(X1,X2), rl(X2,X3),
+  rl(X4,X5), rl(X5,X6),
+  ud(X4, X1), ud(X5, X2), ud(X6, X3).
+consistent1([X1,X2,X3,X4,X5,X6,X7], 7) :-
+  rl(X1,X2), rl(X2,X3),
+  rl(X4,X5), rl(X5,X6),
+  ud(X4, X1), ud(X5, X2), ud(X6, X3),
+  ud(X7, X4).
+consistent1([X1,X2,X3,X4,X5,X6,X7,X8], 8) :-
+  rl(X1,X2), rl(X2,X3),
+  rl(X4,X5), rl(X5,X6),
+  rl(X7,X8),
+  ud(X4, X1), ud(X5, X2), ud(X6, X3),
+  ud(X7, X4), ud(X8, X5).
+consistent1([X1,X2,X3,X4,X5,X6,X7,X8,X9], 9) :-
+  rl(X1,X2), rl(X2,X3),
+  rl(X4,X5), rl(X5,X6),
+  rl(X7,X8), rl(X8,X9),
+  ud(X4, X1), ud(X5, X2), ud(X6, X3),
+  ud(X7, X4), ud(X8, X5), ud(X9, X6).
+
+
+% ending condition
+assemble([],PrevAssign,[end]).
+
+% assemble parts into a board
+assemble(Domain,PrevAssign,Seq) :-
+  select(X, Domain, Remaining), % pick a part
+  rotation(X, Current), % choose the rotation of that part
+
+  append(PrevAssign, [Current], CurrAssign), % add this piece into the assignment
+
+  % check whether the current assignment is consistent
+  consistent1(CurrAssign, L), length(CurrAssign, L),
+
+  % pick the next one as a recursive process
+  assemble(Remaining, CurrAssign, NSeq),
+  append([X, Current], NSeq, Seq).

@@ -1,0 +1,25 @@
+:- import append/3 from basics.
+:- import member/2 from basics.
+
+% query: reach(state(a,b,c,onfloor,nobanana), [],  Sequence).
+
+% state (location of the monkey, location of the banana,
+% location of the chair, onchair or onfloor, hasbanana or nobanana)
+
+% definition of valid transitions bewteen states
+transit(state(X,Y,X,onfloor,B), climb, state(X,Y,X,onchair,B)).
+transit(state(X,Y,X,onfloor,B), push(X,X1), state(X1,Y,X1,onfloor,B)) :-
+  member(X1,[a,b,c]), not(X1 = X).
+transit(state(X,Y,Z,onfloor,B), walk(X,X1), state(X1,Y,Z,onfloor,B)) :-
+  member(X1,[a,b,c]), not(X1 = X).
+
+% goal state(fact) of the problem
+reach(state(b,b,b,onchair,nobanana), _ ,[grasp]).
+
+% general predicate to answer the sequence of reachability
+reach(Current, History, Seq) :-
+  transit(Current, Step, Next), % Step describe the transition
+  not(member(Next, History)), % loop check
+  append([Next], History, NHistory),
+  reach(Next, NHistory, NSeq),
+  append([Step], NSeq, Seq).
