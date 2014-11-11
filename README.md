@@ -7,7 +7,7 @@ The list of problems solved is:
 - [x] a2: Informed Search
 - [ ] a3: Adversarial Search
 - [x] a4: Constraint Satisfaction Problem
-- [ ] a5: Knowledge Representation
+- [x] a5-8: Knowledge Representation
 
 ##Description of the problems
 a1: Linear Sliding Puzzle
@@ -20,6 +20,14 @@ a3: Ercect-a-Barrier 2-Persons Game
 
 a4: Golomb Ruler
 http://en.wikipedia.org/wiki/Golomb_ruler
+
+a5: Monkey and Banana
+
+a6: Analogy
+
+a7: Cryptarithmetic
+
+a8: Assembly
 
 
 ##Algorithms
