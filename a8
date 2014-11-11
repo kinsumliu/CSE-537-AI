@@ -3,8 +3,8 @@
 :- import ith/3 from basics.
 :- import length/2 from basics.
 
-% query: assemble([1,2,3,4,5,6,7,8,9], [], Assign).
-% other: assemble([1,2], [], Assign), assemble([1,2,3,4], [], Assign).
+% query: assemble([1,2,3,4,5,6,7,8,9], [], Seq).
+% other: assemble([1,2], [], Seq), assemble([1,2,3,4], [], Seq).
 
 % part([UP, DOWN, LEFT, RIGHT])
 part([-b,d,-a,c]).
