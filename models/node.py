@@ -2,14 +2,13 @@ __author__ = 'kinsumliu'
 
 
 class Node:
-    parent = None
-    action = None
-    depth = 0
-    path_cost = 0  # path_cost(n) = g(n) = cost so far to reach n
-    h = 0   # h(n) = estimated cost to gaol from n,
-    ## f(n) = g(n) + h(n) estimated total cost of path through n to goal
-
     def __init__(self, vec):
+        self.parent = None
+        self.action = None
+        self.depth = 0
+        self.path_cost = 0  # path_cost(n) = g(n) = cost so far to reach n
+        self.h = 0   # h(n) = estimated cost to gaol from n,
+        ## f(n) = g(n) + h(n) estimated total cost of path through n to goal
         self.vec = vec
         self.successors = set()
 
